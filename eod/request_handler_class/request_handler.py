@@ -54,26 +54,28 @@ class RequestHandler():
             full dict of paramters of the request.
 
         """
-        dict_to_append['fmt'] = 'json'
         dict_to_append['api_token'] = self.api_key
-        
+
+        if 'fmt' not in dict_to_append:
+            dict_to_append['fmt'] = 'csv'
+
         # from query parameter
         if 'from' in dict_to_append:
-                del dict_to_append['from']
+            del dict_to_append['from']
                 
         if 'from_' in dict_to_append:
             dict_to_append['from'] = dict_to_append.pop('from_')
         
         # type query parameter
         if 'type' in dict_to_append:
-                del dict_to_append['type']
+            del dict_to_append['type']
         
         if 'type_' in dict_to_append:
             dict_to_append['type'] = dict_to_append.pop('type_')
             
         # filter query parameter
         if 'filter' in dict_to_append:
-                del dict_to_append['filter']
+            del dict_to_append['filter']
         
         if 'filter_' in dict_to_append:
             dict_to_append['filter'] = dict_to_append.pop('filter_')
