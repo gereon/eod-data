@@ -35,7 +35,10 @@ class RequestHandler():
                                  timeout=self.timeout)
         
         if self.resp.status_code == 200:
-            return self.resp.json()
+            if query_params_['fmt'] == 'json':
+                return self.resp.json()
+            else:
+                return self.resp.text
         else:
             self.resp.raise_for_status()
     
