@@ -38,7 +38,10 @@ class RequestHandler():
             if query_params_['fmt'] == 'json':
                 return self.resp.json()
             else:
-                return self.resp.text
+                body_size = self.resp.text.rfind('\n')
+                if body_size != (int(self.resp.text[body_size:]) - 1):
+                    raise Exception('Response size could not be validated.')
+                return self.resp.text[:body_size]
         else:
             self.resp.raise_for_status()
     
